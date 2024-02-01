@@ -40,3 +40,8 @@ Just in the file you want to use configuration just inject IConfiguration throug
             _configuration = configuration;
      }
     var mySettingskey1 = _configuration["MySettings:Key1"];
+
+
+Migration
+Add-Migration Initial
+Update-Database
