@@ -1,10 +1,12 @@
-﻿# Attribute Based Routing
-On controllers RouteAttribute
-[Route("api/Products")]
-On routes Http[Verb]Attribute
-[HttpGet("getSingleProduct")]
+﻿# Movie REST API Project 
 
-The Http[Verb]Attribute and RouteAttribute attributes can be assigned multiple times to define multiple routes, and are hierarchical, which means that they support route inheritance. This means that if you configured a route on your controller, the routes you define on the methods will extend it
+## Attribute Based Routing
+On controllers -> RouteAttribute
+[Route("api/Products")] or [Route("api/[controller]")]
+On routes -> Http[Verb]Attribute
+[HttpGet("getSingleProduct")] or [HttpGet("[action]")]
+
+The Http[Verb]Attribute and RouteAttribute attributes can be assigned multiple times to define multiple routes, and are hierarchical, which means that they support route inheritance. This means that if you configured a route on your controller, the routes you define on the methods will extend it.
 If the Http[Verb]Attribute that you set on a method contains a string that begins with /, then it won't be combined with the route defined in the controller, and will instead define a route of its own.
 
 Attribute-based routing supports a few predefined tokens that are placed in square brackets ([ and ]), and will be replaced at runtime with their corresponding value:
@@ -16,10 +18,10 @@ Default values are defined by placing an equals sign next to the route parameter
 Eg: [HttpGet("searchcategory/{category}/{subcategory=all}/")]
 
 
-#lauchsetting
+## lauchsetting
 launchSettings.json is used for development-time configuration, specifying how the application should run during development and debugging.
 
-# appsetting
+## appsetting
 The settings in appsettings.json can be bound to strongly-typed classes in your application using the Options pattern.
 If there are settings that your application needs to use, please store them in appsettings.json.
 
@@ -42,6 +44,6 @@ Just in the file you want to use configuration just inject IConfiguration throug
     var mySettingskey1 = _configuration["MySettings:Key1"];
 
 
-Migration
+## Creating Database with Migrations
 Add-Migration Initial
 Update-Database
