@@ -13,7 +13,8 @@ builder.Services.AddControllers();
 
 //adding db context service
 builder.Services.AddDbContext<MovieContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("MovieContext")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("MovieContext"))
+    );
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
