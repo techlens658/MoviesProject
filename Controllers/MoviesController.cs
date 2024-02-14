@@ -9,10 +9,10 @@ namespace MoviesProject.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly MovieContext _dbcontext;
-        public MoviesController(MovieContext dbcontext)
+        private readonly MovieContext _movieDbcontext;
+        public MoviesController(MovieContext movieDbcontext)
         {
-            _dbcontext = dbcontext;
+            _movieDbcontext = movieDbcontext;
         }
 
 
@@ -20,22 +20,22 @@ namespace MoviesProject.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
         {
-            if (_dbcontext.Movies == null)
+            if (_movieDbcontext.Movies == null)
             {
                 return NotFound();
             }
-            return await _dbcontext.Movies.ToListAsync();
+            return await _movieDbcontext.Movies.ToListAsync();
         }
 
         // GET api/Movies/3
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
-            if (_dbcontext == null)
+            if (_movieDbcontext == null)
             {
                 return NotFound();
             }
-            var movie = await _dbcontext.Movies.FindAsync(id);
+            var movie = await _movieDbcontext.Movies.FindAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -46,8 +46,8 @@ namespace MoviesProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Movie>> PostMovie(Movie movie)
         {
-            _dbcontext.Movies.Add(movie);
-            await _dbcontext.SaveChangesAsync();
+            _movieDbcontext.Movies.Add(movie);
+            await _movieDbcontext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
 
         }
@@ -61,10 +61,10 @@ namespace MoviesProject.Controllers
                 return BadRequest();
             }
 
-            _dbcontext.Entry(movie).State = EntityState.Modified;
+            _movieDbcontext.Entry(movie).State = EntityState.Modified;
             try
             {
-                await _dbcontext.SaveChangesAsync();
+                await _movieDbcontext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,24 +85,24 @@ namespace MoviesProject.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteMovie(int id)
         {
-            if (_dbcontext.Movies == null)
+            if (_movieDbcontext.Movies == null)
             {
                 return NotFound();
             }
 
-            var movie = await _dbcontext.Movies.FindAsync(id);
+            var movie = await _movieDbcontext.Movies.FindAsync(id);
             if (movie == null)
             {
                 return NotFound();
             }
-            _dbcontext.Movies.Remove(movie);
-            await _dbcontext.SaveChangesAsync();
+            _movieDbcontext.Movies.Remove(movie);
+            await _movieDbcontext.SaveChangesAsync();
             return NoContent();
         }
 
         private bool MovieExist(long id)
         {
-            return (_dbcontext.Movies?.Any(x => x.Id == id)).GetValueOrDefault();
+            return (_movieDbcontext.Movies?.Any(x => x.Id == id)).GetValueOrDefault();
         }
 
 
